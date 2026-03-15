@@ -1,6 +1,7 @@
 FROM alpine:latest
 
-ARG PB_VERSION=0.30.0
+# Change this to the current actual version of PocketBase
+ARG PB_VERSION=0.22.22
 
 RUN apk add --no-cache \
     unzip \
@@ -12,5 +13,5 @@ RUN unzip /tmp/pb.zip -d /pb/
 
 EXPOSE 8080
 
-# start PocketBase
-CMD ["/pb/pocketbase", "serve", "--http=0.0.0.0:8080"]
+# Start PocketBase and force it to use the Railway Persistent Volume
+CMD ["/pb/pocketbase", "serve", "--http=0.0.0.0:8080", "--dir=/pb_data"]
